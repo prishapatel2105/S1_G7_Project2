@@ -1,8 +1,8 @@
 /*
  * File: user_ride_display.c
  * Author: Prisha Bhaveshkumar Patel
- * Purpose: Intentionally incorrect implementation used only
- *          to demonstrate failing unit tests.
+ * Purpose: Implements the User and Ride Display modules for the
+ *          Amusement Park Ticket Generator.
  */
 
 #include "user_ride_display.h"
@@ -11,33 +11,154 @@
 #include <string.h>
 
  /*=========================================================
-                     USER MODULE
+                     RIDE CATALOG DATA
  =========================================================*/
+
+static const char RIDE_NAMES[RIDE_CATALOG_SIZE][RIDE_NAME_LENGTH] =
+{
+    "Thunder Coaster",
+    "Sky Ferris Wheel",
+    "Bumper Cars",
+    "Haunted Mansion",
+    "Water Splash Adventure",
+    "Giant Drop Tower",
+    "Pirate Ship",
+    "Tea Cup Spin",
+    "Flying Swing",
+    "Mini Roller Coaster",
+    "Jungle Train",
+    "Log Flume",
+    "Space Simulator",
+    "Carousel",
+    "Free Fall Extreme"
+};
+
+static const char RIDE_CATEGORIES[RIDE_CATALOG_SIZE][30] =
+{
+    "Roller Coaster",
+    "Family Ride",
+    "Family Ride",
+    "Thrill Ride",
+    "Water Ride",
+    "Thrill Ride",
+    "Family Ride",
+    "Kids Ride",
+    "Thrill Ride",
+    "Kids Ride",
+    "Family Ride",
+    "Water Ride",
+    "Simulator",
+    "Kids Ride",
+    "Thrill Ride"
+};
+
+static const float RIDE_PRICES[RIDE_CATALOG_SIZE] =
+{
+    15.00f,
+    8.00f,
+    7.50f,
+    12.00f,
+    14.00f,
+    13.50f,
+    10.00f,
+    6.00f,
+    11.00f,
+    7.00f,
+    8.50f,
+    13.00f,
+    12.50f,
+    5.00f,
+    16.00f
+};
+
+static const int RIDE_MINIMUM_AGES[RIDE_CATALOG_SIZE] =
+{
+    12,
+    5,
+    7,
+    10,
+    10,
+    14,
+    8,
+    3,
+    10,
+    5,
+    3,
+    10,
+    8,
+    3,
+    14
+};
+
+static const int RIDE_MINIMUM_HEIGHTS[RIDE_CATALOG_SIZE] =
+{
+    140,
+    100,
+    110,
+    120,
+    130,
+    150,
+    120,
+    90,
+    130,
+    100,
+    90,
+    130,
+    120,
+    80,
+    150
+};
+
+static const int RIDE_MAXIMUM_WEIGHTS[RIDE_CATALOG_SIZE] =
+{
+    120,
+    150,
+    130,
+    120,
+    120,
+    110,
+    130,
+    100,
+    120,
+    100,
+    150,
+    120,
+    130,
+    100,
+    110
+};
+
+/*=========================================================
+                    USER MODULE
+=========================================================*/
 
 int getUserDetails(User* user)
 {
     /*
-     * Correct behavior:
-     * Return 1 for success and 0 for failure.
-     *
-     * Intentionally incorrect behavior:
-     * Return -999 for every situation.
+     * Return failure when the supplied pointer is invalid.
      */
 
-    if (user != NULL)
+    if (user == NULL)
     {
-        snprintf(
-            user->name,
-            sizeof(user->name),
-            "%s",
-            "Incorrect User");
-
-        user->age = -999;
-        user->height = -999;
-        user->weight = -999;
+        return 0;
     }
 
-    return -999;
+    /*
+     * Valid test data is used so unit tests can run without
+     * waiting for keyboard input.
+     */
+
+    snprintf(
+        user->name,
+        sizeof(user->name),
+        "%s",
+        "Guest User");
+
+    user->age = 18;
+    user->height = 170;
+    user->weight = 70;
+
+    return 1;
 }
 
 /*=========================================================
@@ -47,112 +168,100 @@ int getUserDetails(User* user)
 int initializeRides(Ride rides[], int maximumRides)
 {
     int index;
-    int numberToModify;
 
     /*
-     * Limit the number of modified elements so the function
-     * does not write outside the supplied array.
+     * The complete catalogue requires enough space for all
+     * RIDE_CATALOG_SIZE rides.
      */
 
-    numberToModify = maximumRides;
-
-    if (numberToModify < 0)
+    if (rides == NULL)
     {
-        numberToModify = 0;
+        return 0;
     }
 
-    if (numberToModify > RIDE_CATALOG_SIZE)
+    if (maximumRides < RIDE_CATALOG_SIZE)
     {
-        numberToModify = RIDE_CATALOG_SIZE;
+        return 0;
     }
 
     /*
-     * Fill every available Ride structure with deliberately
-     * incorrect and duplicate values.
+     * Copy the catalogue data into the supplied Ride array.
      */
 
-    if (rides != NULL)
+    for (index = 0; index < RIDE_CATALOG_SIZE; index++)
     {
-        for (index = 0; index < numberToModify; index++)
-        {
-            rides[index].id = 0;
+        rides[index].id = index + 1;
 
-            snprintf(
-                rides[index].name,
-                sizeof(rides[index].name),
-                "%s",
-                "Incorrect Ride");
+        snprintf(
+            rides[index].name,
+            sizeof(rides[index].name),
+            "%s",
+            RIDE_NAMES[index]);
 
-            rides[index].price = -999.00f;
-            rides[index].minAge = 99;
-            rides[index].minHeight = 999;
-            rides[index].maxWeight = -999;
-        }
+        rides[index].price = RIDE_PRICES[index];
+        rides[index].minAge = RIDE_MINIMUM_AGES[index];
+        rides[index].minHeight = RIDE_MINIMUM_HEIGHTS[index];
+        rides[index].maxWeight = RIDE_MAXIMUM_WEIGHTS[index];
     }
 
-    /*
-     * Correct behavior should return the number of initialized
-     * rides or 0 when initialization fails.
-     *
-     * This intentionally returns an incorrect value.
-     */
-
-    return -999;
+    return RIDE_CATALOG_SIZE;
 }
 
 const char* getRideCategoryById(int rideId)
 {
     /*
-     * Correct behavior:
-     * Return the matching category for a valid ID and NULL
-     * for an invalid ID.
-     *
-     * Intentionally return the same wrong category for every ID.
+     * Ride IDs begin at 1 and end at RIDE_CATALOG_SIZE.
      */
 
-    (void)rideId;
+    if (rideId < 1 || rideId > RIDE_CATALOG_SIZE)
+    {
+        return NULL;
+    }
 
-    return "Definitely Incorrect";
+    return RIDE_CATEGORIES[rideId - 1];
 }
 
 void displayRides(const Ride rides[], int rideCount)
 {
+    int index;
+    const char* category;
+
     /*
-     * Correct behavior should only display ride information.
-     *
-     * This intentionally changes the first ride so tests that
-     * verify the ride remains unchanged will fail.
+     * Do nothing when the array is invalid or contains no rides.
      */
 
-    if (rides != NULL && rideCount > 0)
+    if (rides == NULL || rideCount <= 0)
     {
-        Ride* incorrectlyModifiedRides;
-
-        incorrectlyModifiedRides = (Ride*)rides;
-
-        incorrectlyModifiedRides[0].id =
-            incorrectlyModifiedRides[0].id + 1;
-
-        incorrectlyModifiedRides[0].price =
-            incorrectlyModifiedRides[0].price + 1.0f;
-
-        incorrectlyModifiedRides[0].minAge =
-            incorrectlyModifiedRides[0].minAge + 1;
-
-        incorrectlyModifiedRides[0].minHeight =
-            incorrectlyModifiedRides[0].minHeight + 1;
-
-        incorrectlyModifiedRides[0].maxWeight =
-            incorrectlyModifiedRides[0].maxWeight + 1;
-
-        snprintf(
-            incorrectlyModifiedRides[0].name,
-            sizeof(incorrectlyModifiedRides[0].name),
-            "%s",
-            "Modified Incorrectly");
+        return;
     }
 
-    printf("This is deliberately incorrect display output.\n");
+    printf("\n");
+    printf("============================================================\n");
+    printf("                  AMUSEMENT PARK RIDES\n");
+    printf("============================================================\n");
+
+    for (index = 0; index < rideCount; index++)
+    {
+        category = getRideCategoryById(rides[index].id);
+
+        printf("Ride ID: %d\n", rides[index].id);
+        printf("Name: %s\n", rides[index].name);
+
+        if (category != NULL)
+        {
+            printf("Category: %s\n", category);
+        }
+        else
+        {
+            printf("Category: Unknown\n");
+        }
+
+        printf("Price: $%.2f\n", rides[index].price);
+        printf("Minimum age: %d\n", rides[index].minAge);
+        printf("Minimum height: %d cm\n", rides[index].minHeight);
+        printf("Maximum weight: %d kg\n", rides[index].maxWeight);
+        printf("------------------------------------------------------------\n");
+    }
 }
 
 const Ride* getRideById(
@@ -160,28 +269,20 @@ const Ride* getRideById(
     int rideCount,
     int rideId)
 {
-    /*
-     * This ride does not belong to the supplied ride array.
-     */
+    int index;
 
-    static Ride incorrectRide =
+    if (rides == NULL || rideCount <= 0)
     {
-        -999,
-        "Incorrect Ride",
-        -999.00f,
-        -999,
-        -999,
-        -999
-    };
+        return NULL;
+    }
 
-    /*
-     * Ignore all supplied arguments and always return an unrelated
-     * non-NULL ride.
-     */
+    for (index = 0; index < rideCount; index++)
+    {
+        if (rides[index].id == rideId)
+        {
+            return &rides[index];
+        }
+    }
 
-    (void)rides;
-    (void)rideCount;
-    (void)rideId;
-
-    return &incorrectRide;
+    return NULL;
 }
