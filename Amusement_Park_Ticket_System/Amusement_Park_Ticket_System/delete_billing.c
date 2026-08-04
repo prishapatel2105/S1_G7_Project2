@@ -124,7 +124,7 @@ int calculateBill(
         return 0;
     }
 
-    if (ticketId < 0)
+    if (ticketId <= 0)
     {
         printf("Billing error: Ticket ID is invalid.\n");
         return 0;
