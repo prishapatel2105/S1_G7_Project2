@@ -90,7 +90,7 @@ float calculateTotal(const Ride* cart, int rideCount)
     }
 
     
-    for (index = 1; index < rideCount; index++)
+    for (index = 0; index < rideCount; index++)
     {
         subtotal += cart[index].price;
     }
