@@ -7,6 +7,9 @@
  *          User and Ride Display module functions.
  */
 
+#ifndef USER_RIDE_DISPLAY_H
+#define USER_RIDE_DISPLAY_H
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -15,8 +18,8 @@ extern "C" {
                             CONSTANTS
     =========================================================*/
 
-#define USER_NAME_LENGTH 50
-#define RIDE_NAME_LENGTH 50
+#define USER_NAME_LENGTH 64
+#define RIDE_NAME_LENGTH 64
 #define RIDE_CATALOG_SIZE 15
 
     /*=========================================================
@@ -25,10 +28,11 @@ extern "C" {
 
     typedef struct User
     {
+		int id;
         char name[USER_NAME_LENGTH];
         int age;
-        int height;
-        int weight;
+		int height; /* in centimeters */
+		int weight; /* in kilograms */
     } User;
 
     /*=========================================================
@@ -41,8 +45,9 @@ extern "C" {
         char name[RIDE_NAME_LENGTH];
         float price;
         int minAge;
-        int minHeight;
-        int maxWeight;
+		int minHeight; /* in centimeters */
+		int maxWeight; /* in kilograms; 0 means no maximum */
+		double price;
     } Ride;
 
     /*=========================================================
@@ -102,3 +107,5 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* USER_RIDE_DISPLAY_H */
