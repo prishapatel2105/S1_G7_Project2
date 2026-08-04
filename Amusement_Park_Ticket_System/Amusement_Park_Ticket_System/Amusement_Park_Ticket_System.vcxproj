@@ -140,6 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Amusement_Park_Ticket_System.c" />
+    <ClCompile Include="delete_billing.c" />
+    <ClCompile Include="user_ride_display.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="delete_billing.h" />
+    <ClInclude Include="user_ride_display.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
