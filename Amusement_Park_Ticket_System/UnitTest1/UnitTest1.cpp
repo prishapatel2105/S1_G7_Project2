@@ -141,26 +141,50 @@ namespace UnitTest1
         // Test 14
         TEST_METHOD(DisplayRides_ShouldNotModifyRidePrice)
         {
-            Ride rides[1] = { {1, "Roller Coaster", 15.0f, 12, 140, 120} };
+            Ride rides[1] =
+            {
+                {1, "Roller Coaster", 12, 140, 120, 15.0}
+            };
 
-            float originalPrice = rides[0].price;
+            double originalPrice = rides[0].price;
 
             displayRides(rides, 1);
 
-            Assert::AreEqual(originalPrice, rides[0].price);
+            Assert::AreEqual(
+                originalPrice,
+                rides[0].price,
+                0.001);
         }
 
         // Test 15
         TEST_METHOD(DisplayRides_ShouldNotModifyRideName)
         {
-            Ride rides[1] = { {1, "Roller Coaster", 15.0f, 12, 140, 120} };
+            Ride rides[1] = {};
+
+            rides[0].id = 1;
+
+            strcpy_s(
+                rides[0].name,
+                sizeof(rides[0].name),
+                "Roller Coaster");
+
+            rides[0].minAge = 12;
+            rides[0].minHeight = 140;
+            rides[0].maxWeight = 120;
+            rides[0].price = 15.00;
 
             char originalName[RIDE_NAME_LENGTH];
-            strcpy_s(originalName, rides[0].name);
+
+            strcpy_s(
+                originalName,
+                sizeof(originalName),
+                rides[0].name);
 
             displayRides(rides, 1);
 
-            Assert::AreEqual(0, strcmp(originalName, rides[0].name));
+            Assert::AreEqual(
+                0,
+                strcmp(originalName, rides[0].name));
         }
 
         // Test 16

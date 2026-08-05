@@ -21,18 +21,9 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Amusement_Park_Ticket_System\delete_billing.c">
-      <Filter>Header Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Amusement_Park_Ticket_System\delete_billing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Amusement_Park_Ticket_System\user_ride_display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

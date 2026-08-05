@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+extern "C"
+{
 #include "../Amusement_Park_Ticket_System/delete_billing.h"
+#include "../Amusement_Park_Ticket_System/delete_billing.c"
+}
 
 #include <cstdio>
 
@@ -16,21 +20,20 @@ namespace UnitTest3
         /*
          * Creates a Ride structure containing valid test data.
          */
-        static Ride createTestRide(int id, float price)
+        static Ride createTestRide(int rideId, double ridePrice)
         {
             Ride ride = {};
 
-            ride.id = id;
-            sprintf_s(
+            ride.id = rideId;
+            strcpy_s(
                 ride.name,
                 sizeof(ride.name),
-                "Test Ride %d",
-                id);
+                "Test Ride");
 
-            ride.price = price;
-            ride.minAge = 10;
-            ride.minHeight = 120;
-            ride.maxWeight = 120;
+            ride.minAge = 0;
+            ride.minHeight = 0;
+            ride.maxWeight = 0;
+            ride.price = ridePrice;
 
             return ride;
         }
@@ -61,7 +64,7 @@ namespace UnitTest3
             Assert::AreEqual(2, cart[0].id);
             Assert::AreEqual(3, cart[1].id);
             Assert::AreEqual(0, cart[2].id);
-            Assert::AreEqual(0.00f, cart[2].price, 0.001f);
+            Assert::AreEqual(0.0, cart[2].price, 0.001);
         }
 
         /*
@@ -133,7 +136,7 @@ namespace UnitTest3
             Assert::AreEqual(1, result);
             Assert::AreEqual(0, rideCount);
             Assert::AreEqual(0, cart[0].id);
-            Assert::AreEqual(0.00f, cart[0].price, 0.001f);
+            Assert::AreEqual(0.0, cart[0].price, 0.001);
         }
 
         /*

@@ -43,7 +43,6 @@ extern "C" {
     {
         int id;
         char name[RIDE_NAME_LENGTH];
-        float price;
         int minAge;
 		int minHeight; /* in centimeters */
 		int maxWeight; /* in kilograms; 0 means no maximum */
