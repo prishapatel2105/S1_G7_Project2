@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
- <ItemGroup>
+  <ItemGroup>
   <ClCompile Include="Amusement_Park_Ticket_System.c">
     <Filter>Source Files</Filter>
   </ClCompile>
@@ -26,6 +26,10 @@
   <ClCompile Include="eligibility_selection.c">
     <Filter>Source Files</Filter>
   </ClCompile>
+
+  <ClCompile Include="delete_billing.c">
+    <Filter>Source Files</Filter>
+  </ClCompile>
 </ItemGroup>
 
 <ItemGroup>
@@ -34,6 +38,10 @@
   </ClInclude>
 
   <ClInclude Include="eligibility_selection.h">
+    <Filter>Header Files</Filter>
+  </ClInclude>
+
+  <ClInclude Include="delete_billing.h">
     <Filter>Header Files</Filter>
   </ClInclude>
 </ItemGroup>
