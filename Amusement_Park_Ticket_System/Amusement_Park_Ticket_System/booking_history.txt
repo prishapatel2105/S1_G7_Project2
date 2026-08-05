@@ -1,0 +1,73 @@
+BOOKING_START
+Phone: 5488833277
+Email: Dbajaj@gmail.com
+Visitor: dakksshhhhhhhhhh
+Ticket ID: 126357
+Selected Rides:
+R110 - Mini Roller Coaster - $14.00
+R111 - Jungle Train - $9.00
+Subtotal: $23.00
+Discount Percentage: 0%
+Discount Amount: $0.00
+Final Total: $23.00
+BOOKING_END
+
+BOOKING_START
+Phone: 5488833277
+Email: Dbajaj@gmail.com
+Visitor: Daksh
+Ticket ID: 127112
+Selected Rides:
+R101 - Thunder Coaster - $25.00
+R102 - Sky Ferris Wheel - $10.00
+R103 - Bumper Cars - $15.00
+R104 - Haunted Mansion - $20.00
+R105 - Water Splash Adventure - $18.00
+R106 - Giant Drop Tower - $30.00
+R107 - Pirate Ship - $16.00
+R108 - Tea Cup Spin - $8.00
+R109 - Flying Swing - $12.00
+R111 - Jungle Train - $9.00
+R110 - Mini Roller Coaster - $14.00
+Subtotal: $177.00
+Discount Percentage: 20%
+Discount Amount: $35.40
+Final Total: $141.60
+BOOKING_END
+
+BOOKING_START
+Phone: 9427392273
+Email: pisuke@gmail.com
+Visitor: Pisuke
+Ticket ID: 100881
+Selected Rides:
+R101 - Thunder Coaster - $25.00
+R104 - Haunted Mansion - $20.00
+R106 - Giant Drop Tower - $30.00
+R111 - Jungle Train - $9.00
+R115 - Free Fall Extreme - $35.00
+R112 - Log Flume - $19.00
+R113 - Space Simulator - $0.00
+R107 - Pirate Ship - $16.00
+R108 - Tea Cup Spin - $8.00
+R114 - Carousel - $7.00
+R110 - Mini Roller Coaster - $14.00
+Subtotal: $183.00
+Discount Percentage: 20%
+Discount Amount: $36.60
+Final Total: $146.40
+BOOKING_END
+
+BOOKING_START
+Phone: 1234567865
+Email: heheh@gmail.com
+Visitor: hehehe
+Ticket ID: 103896
+Selected Rides:
+R102 - Sky Ferris Wheel - $10.00
+Subtotal: $10.00
+Discount Percentage: 0%
+Discount Amount: $0.00
+Final Total: $10.00
+BOOKING_END
+

@@ -5,6 +5,8 @@
  *          Amusement Park Ticket Generator.
  */
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "user_ride_display.h"
 
 #include <stdio.h>
@@ -38,74 +40,74 @@ static const char RIDE_CATEGORIES[RIDE_CATALOG_SIZE][30] =
     "Roller Coaster",
     "Family Ride",
     "Family Ride",
-    "Thrill Ride",
+    "Horror Ride",
     "Water Ride",
     "Thrill Ride",
-    "Family Ride",
-    "Kids Ride",
-    "Thrill Ride",
+    "Family Thrill",
     "Kids Ride",
     "Family Ride",
+    "Kids Coaster",
+    "Scenic Ride",
     "Water Ride",
-    "Simulator",
-    "Kids Ride",
-    "Thrill Ride"
+    "Simulator Ride",
+    "Classic Ride",
+    "Extreme Thrill"
 };
 
 static const float RIDE_PRICES[RIDE_CATALOG_SIZE] =
 {
+    25.00f,
+    10.00f,
     15.00f,
+    20.00f,
+    18.00f,
+    30.00f,
+    16.00f,
     8.00f,
-    7.50f,
     12.00f,
     14.00f,
-    13.50f,
-    10.00f,
-    6.00f,
-    11.00f,
+    9.00f,
+    19.00f,
+    22.00f,
     7.00f,
-    8.50f,
-    13.00f,
-    12.50f,
-    5.00f,
-    16.00f
+    35.00f
 };
 
 static const int RIDE_MINIMUM_AGES[RIDE_CATALOG_SIZE] =
 {
     12,
-    5,
-    7,
+    0,
+    8,
     10,
-    10,
+    6,
     14,
     8,
-    3,
+    4,
+    6,
+    7,
+    0,
     10,
-    5,
-    3,
-    10,
-    8,
-    3,
-    14
+    12,
+    0,
+    16
 };
 
 static const int RIDE_MINIMUM_HEIGHTS[RIDE_CATALOG_SIZE] =
 {
     140,
+    0,
+    120,
+    130,
+    110,
+    145,
+    120,
+    90,
     100,
     110,
-    120,
-    130,
-    150,
-    120,
-    90,
-    130,
-    100,
-    90,
-    130,
-    120,
-    80,
+    0,
+    125,
+    135,
+    0,
     150
 };
 
@@ -129,24 +131,22 @@ static const int RIDE_MAXIMUM_WEIGHTS[RIDE_CATALOG_SIZE] =
 };
 
 /*=========================================================
-                    USER MODULE
+                       USER MODULE
 =========================================================*/
 
+/*
+ * Author: Prisha Bhaveshkumar Patel
+ * Inputs: Pointer to a User structure.
+ * Outputs: Populates the User structure and returns 1 when successful;
+ *          otherwise, returns 0.
+ * Purpose: Initializes default user information for startup and testing.
+ */
 int getUserDetails(User* user)
 {
-    /*
-     * Return failure when the supplied pointer is invalid.
-     */
-
     if (user == NULL)
     {
         return 0;
     }
-
-    /*
-     * Valid test data is used so unit tests can run without
-     * waiting for keyboard input.
-     */
 
     snprintf(
         user->name,
@@ -162,17 +162,21 @@ int getUserDetails(User* user)
 }
 
 /*=========================================================
-                RIDE DISPLAY MODULE
+                    RIDE DISPLAY MODULE
 =========================================================*/
 
-int initializeRides(Ride rides[], int maximumRides)
+/*
+ * Author: Prisha Bhaveshkumar Patel
+ * Inputs: Ride array and maximum array capacity.
+ * Outputs: Populates the ride array and returns the number of rides;
+ *          otherwise, returns 0.
+ * Purpose: Initializes the built-in amusement park ride catalogue.
+ */
+int initializeRides(
+    Ride rides[],
+    int maximumRides)
 {
     int index;
-
-    /*
-     * The complete catalogue requires enough space for all
-     * RIDE_CATALOG_SIZE rides.
-     */
 
     if (rides == NULL)
     {
@@ -184,13 +188,15 @@ int initializeRides(Ride rides[], int maximumRides)
         return 0;
     }
 
-    /*
-     * Copy the catalogue data into the supplied Ride array.
-     */
-
-    for (index = 0; index < RIDE_CATALOG_SIZE; index++)
+    for (index = 0;
+        index < RIDE_CATALOG_SIZE;
+        index++)
     {
-        rides[index].id = index + 1;
+        /*
+         * Ride IDs follow the project specification:
+         * R101 through R115.
+         */
+        rides[index].id = 101 + index;
 
         snprintf(
             rides[index].name,
@@ -198,72 +204,184 @@ int initializeRides(Ride rides[], int maximumRides)
             "%s",
             RIDE_NAMES[index]);
 
-        rides[index].price = RIDE_PRICES[index];
-        rides[index].minAge = RIDE_MINIMUM_AGES[index];
-        rides[index].minHeight = RIDE_MINIMUM_HEIGHTS[index];
-        rides[index].maxWeight = RIDE_MAXIMUM_WEIGHTS[index];
+        rides[index].price =
+            RIDE_PRICES[index];
+
+        rides[index].minAge =
+            RIDE_MINIMUM_AGES[index];
+
+        rides[index].minHeight =
+            RIDE_MINIMUM_HEIGHTS[index];
+
+        rides[index].maxWeight =
+            RIDE_MAXIMUM_WEIGHTS[index];
     }
 
     return RIDE_CATALOG_SIZE;
 }
 
-const char* getRideCategoryById(int rideId)
+/*
+ * Author: Prisha Bhaveshkumar Patel
+ * Inputs: Numeric ride ID.
+ * Outputs: Returns the matching category or NULL when the ride ID
+ *          is invalid.
+ * Purpose: Retrieves the category associated with a ride.
+ */
+const char* getRideCategoryById(
+    int rideId)
 {
-    /*
-     * Ride IDs begin at 1 and end at RIDE_CATALOG_SIZE.
-     */
+    int index;
 
-    if (rideId < 1 || rideId > RIDE_CATALOG_SIZE)
+    /*
+     * Support project ride IDs R101 through R115.
+     */
+    if (rideId >= 101 &&
+        rideId <= 115)
+    {
+        index = rideId - 101;
+    }
+    /*
+     * Also support IDs 1 through 15 for existing unit tests.
+     */
+    else if (rideId >= 1 &&
+        rideId <= RIDE_CATALOG_SIZE)
+    {
+        index = rideId - 1;
+    }
+    else
     {
         return NULL;
     }
 
-    return RIDE_CATEGORIES[rideId - 1];
+    return RIDE_CATEGORIES[index];
 }
 
-void displayRides(const Ride rides[], int rideCount)
+/*
+ * Author: Prisha Bhaveshkumar Patel
+ * Inputs: Ride array and number of rides.
+ * Outputs: Displays all ride information in a tabular format.
+ * Purpose: Shows ride IDs, names, categories, restrictions and prices.
+ */
+void displayRides(
+    const Ride rides[],
+    int rideCount)
 {
     int index;
     const char* category;
 
-    /*
-     * Do nothing when the array is invalid or contains no rides.
-     */
+    char ageText[20];
+    char heightText[20];
+    char weightText[20];
 
-    if (rides == NULL || rideCount <= 0)
+    if (rides == NULL ||
+        rideCount <= 0)
     {
+        printf(
+            "No rides are available.\n");
+
         return;
     }
 
     printf("\n");
-    printf("============================================================\n");
-    printf("                  AMUSEMENT PARK RIDES\n");
-    printf("============================================================\n");
+    printf("========================================================================================================================\n");
+    printf("                                           AMUSEMENT PARK RIDE LIST\n");
+    printf("========================================================================================================================\n");
 
-    for (index = 0; index < rideCount; index++)
+    printf(
+        "%-9s %-28s %-18s %-13s %-16s %-16s %-12s\n",
+        "Ride ID",
+        "Ride Name",
+        "Category",
+        "Min Age",
+        "Min Height",
+        "Max Weight",
+        "Price CAD");
+
+    printf("------------------------------------------------------------------------------------------------------------------------\n");
+
+    for (index = 0;
+        index < rideCount;
+        index++)
     {
-        category = getRideCategoryById(rides[index].id);
+        category = getRideCategoryById(
+            rides[index].id);
 
-        printf("Ride ID: %d\n", rides[index].id);
-        printf("Name: %s\n", rides[index].name);
-
-        if (category != NULL)
+        if (category == NULL)
         {
-            printf("Category: %s\n", category);
+            category = "Unknown";
+        }
+
+        if (rides[index].minAge == 0)
+        {
+            snprintf(
+                ageText,
+                sizeof(ageText),
+                "%s",
+                "All Ages");
         }
         else
         {
-            printf("Category: Unknown\n");
+            snprintf(
+                ageText,
+                sizeof(ageText),
+                "%d",
+                rides[index].minAge);
         }
 
-        printf("Price: $%.2f\n", rides[index].price);
-        printf("Minimum age: %d\n", rides[index].minAge);
-        printf("Minimum height: %d cm\n", rides[index].minHeight);
-        printf("Maximum weight: %d kg\n", rides[index].maxWeight);
-        printf("------------------------------------------------------------\n");
+        if (rides[index].minHeight == 0)
+        {
+            snprintf(
+                heightText,
+                sizeof(heightText),
+                "%s",
+                "None");
+        }
+        else
+        {
+            snprintf(
+                heightText,
+                sizeof(heightText),
+                "%d cm",
+                rides[index].minHeight);
+        }
+
+        if (rides[index].maxWeight == 0)
+        {
+            snprintf(
+                weightText,
+                sizeof(weightText),
+                "%s",
+                "None");
+        }
+        else
+        {
+            snprintf(
+                weightText,
+                sizeof(weightText),
+                "%d kg",
+                rides[index].maxWeight);
+        }
+
+        printf(
+            "R%-8d %-28s %-18s %-13s %-16s %-16s $%-11.2f\n",
+            rides[index].id,
+            rides[index].name,
+            category,
+            ageText,
+            heightText,
+            weightText,
+            rides[index].price);
     }
+
+    printf("========================================================================================================================\n");
 }
 
+/*
+ * Author: Prisha Bhaveshkumar Patel
+ * Inputs: Ride array, ride count and numeric ride ID.
+ * Outputs: Returns a pointer to the matching Ride or NULL.
+ * Purpose: Finds a selected ride in the ride catalogue.
+ */
 const Ride* getRideById(
     const Ride rides[],
     int rideCount,
@@ -271,12 +389,15 @@ const Ride* getRideById(
 {
     int index;
 
-    if (rides == NULL || rideCount <= 0)
+    if (rides == NULL ||
+        rideCount <= 0)
     {
         return NULL;
     }
 
-    for (index = 0; index < rideCount; index++)
+    for (index = 0;
+        index < rideCount;
+        index++)
     {
         if (rides[index].id == rideId)
         {

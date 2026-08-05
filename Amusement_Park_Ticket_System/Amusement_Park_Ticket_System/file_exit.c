@@ -323,7 +323,6 @@ int saveTicketRecord(
     int rideCount,
     const Ticket* ticket)
 {
-    FILE* existingFile = NULL;
     FILE* outputFile = NULL;
     time_t currentTime;
     struct tm localTimeValue;
@@ -346,32 +345,18 @@ int saveTicketRecord(
     }
 
     /*
-     * Check whether an existing ticket file will be replaced.
+     * Open using append mode so previous tickets remain saved.
      */
-    openResult = fopen_s(
-        &existingFile,
-        filename,
-        "r");
-
-    if (openResult == 0 &&
-        existingFile != NULL)
-    {
-        fclose(existingFile);
-
-        printf(
-            "Warning: Existing ticket file will be replaced.\n");
-    }
-
     openResult = fopen_s(
         &outputFile,
         filename,
-        "w");
+        "a");
 
     if (openResult != 0 ||
         outputFile == NULL)
     {
         printf(
-            "File error: Could not create %s.\n",
+            "File error: Could not open %s.\n",
             filename);
 
         return 0;
@@ -389,6 +374,13 @@ int saveTicketRecord(
             "%Y-%m-%d %H:%M:%S",
             &localTimeValue);
     }
+
+    /*
+     * Separate each saved ticket clearly.
+     */
+    fprintf(
+        outputFile,
+        "\n============================================================\n");
 
     fprintf(
         outputFile,
@@ -460,6 +452,10 @@ int saveTicketRecord(
         "Final Total: $%.2f\n",
         ticket->finalTotal);
 
+    fprintf(
+        outputFile,
+        "============================================================\n");
+
     if (ferror(outputFile))
     {
         printf(
@@ -479,12 +475,11 @@ int saveTicketRecord(
     }
 
     printf(
-        "Ticket saved successfully to %s.\n",
+        "Ticket was added successfully to %s.\n",
         filename);
 
     return 1;
 }
-
 /*
  * Creates and saves a basic ticket record.
  */

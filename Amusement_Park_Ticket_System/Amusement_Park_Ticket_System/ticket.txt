@@ -1,0 +1,43 @@
+AMUSEMENT PARK TICKET
+Generated: 2026-08-05 17:39:17
+Ticket ID: 100881
+Visitor Name: Pisuke
+Age: 18
+Height: 189 cm
+Weight: 78 kg
+
+Selected Rides
+R101,Thunder Coaster,$25.00
+R104,Haunted Mansion,$20.00
+R106,Giant Drop Tower,$30.00
+R111,Jungle Train,$9.00
+R115,Free Fall Extreme,$35.00
+R112,Log Flume,$19.00
+R113,Space Simulator,$0.00
+R107,Pirate Ship,$16.00
+R108,Tea Cup Spin,$8.00
+R114,Carousel,$7.00
+R110,Mini Roller Coaster,$14.00
+
+Subtotal: $183.00
+Discount Percentage: 20%
+Discount Amount: $36.60
+Final Total: $146.40
+
+============================================================
+AMUSEMENT PARK TICKET
+Generated: 2026-08-05 17:54:40
+Ticket ID: 103896
+Visitor Name: hehehe
+Age: 5
+Height: 75 cm
+Weight: 23 kg
+
+Selected Rides
+R102,Sky Ferris Wheel,$10.00
+
+Subtotal: $10.00
+Discount Percentage: 0%
+Discount Amount: $0.00
+Final Total: $10.00
+============================================================

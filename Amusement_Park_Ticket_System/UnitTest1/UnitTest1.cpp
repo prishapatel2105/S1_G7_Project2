@@ -143,17 +143,17 @@ namespace UnitTest1
         {
             Ride rides[1] =
             {
-                {1, "Roller Coaster", 12, 140, 120, 15.0}
+                {1, "Roller Coaster", 12, 140, 120, 15.0f}
             };
 
-            double originalPrice = rides[0].price;
+            float originalPrice = rides[0].price;
 
             displayRides(rides, 1);
 
             Assert::AreEqual(
                 originalPrice,
                 rides[0].price,
-                0.001);
+                0.001f);
         }
 
         // Test 15

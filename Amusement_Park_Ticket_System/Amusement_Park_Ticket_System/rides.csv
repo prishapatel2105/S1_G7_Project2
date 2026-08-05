@@ -1,0 +1,16 @@
+RideID,Name,Price,MinAge,MinHeight,MaxWeight
+R101,Thunder Coaster,25.00,12,140,120
+R102,Sky Ferris Wheel,10.00,0,0,150
+R103,Bumper Cars,15.00,8,120,130
+R104,Haunted Mansion,20.00,10,130,120
+R105,Water Splash Adventure,18.00,6,110,120
+R106,Giant Drop Tower,30.00,14,145,110
+R107,Pirate Ship,16.00,8,120,130
+R108,Tea Cup Spin,8.00,4,90,100
+R109,Flying Swing,12.00,6,100,120
+R110,Mini Roller Coaster,14.00,7,110,100
+R111,Jungle Train,9.00,0,0,150
+R112,Log Flume,19.00,10,125,120
+R113,Space Simulator,22.00,12,135,130
+R114,Carousel,7.00,0,0,100
+R115,Free Fall Extreme,35.00,16,150,110

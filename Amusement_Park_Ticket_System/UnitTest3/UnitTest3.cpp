@@ -20,7 +20,7 @@ namespace UnitTest3
         /*
          * Creates a Ride structure containing valid test data.
          */
-        static Ride createTestRide(int rideId, double ridePrice)
+        static Ride createTestRide(int rideId, float ridePrice)
         {
             Ride ride = {};
 
@@ -64,7 +64,7 @@ namespace UnitTest3
             Assert::AreEqual(2, cart[0].id);
             Assert::AreEqual(3, cart[1].id);
             Assert::AreEqual(0, cart[2].id);
-            Assert::AreEqual(0.0, cart[2].price, 0.001);
+            Assert::AreEqual(0.0f, cart[2].price, 0.001f);
         }
 
         /*
@@ -136,7 +136,7 @@ namespace UnitTest3
             Assert::AreEqual(1, result);
             Assert::AreEqual(0, rideCount);
             Assert::AreEqual(0, cart[0].id);
-            Assert::AreEqual(0.0, cart[0].price, 0.001);
+            Assert::AreEqual(0.0f, cart[0].price, 0.001f);
         }
 
         /*
