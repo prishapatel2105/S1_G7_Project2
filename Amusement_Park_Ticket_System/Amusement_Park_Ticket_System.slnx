@@ -3,7 +3,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Amusement_Park_Ticket_System/Amusement_Park_Ticket_System.vcxproj" Id="..." />
+  <Project Path="Amusement_Park_Ticket_System/Amusement_Park_Ticket_System.vcxproj" Id="a6462064-ad26-4d3e-aab3-c0aec72af6db" />
 <Project Path="UnitTest1/UnitTest1.vcxproj" />
 <Project Path="UnitTest2/UnitTest2.vcxproj" />
 <Project Path="UnitTest3/UnitTest3.vcxproj" />

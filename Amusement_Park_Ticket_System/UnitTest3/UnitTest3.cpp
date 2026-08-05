@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+#include <cstring>
+
 extern "C"
 {
 #include "../Amusement_Park_Ticket_System/delete_billing.h"
 #include "../Amusement_Park_Ticket_System/delete_billing.c"
 }
-
-#include <cstdio>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -20,20 +20,23 @@ namespace UnitTest3
         /*
          * Creates a Ride structure containing valid test data.
          */
-        static Ride createTestRide(int rideId, double ridePrice)
+        static Ride createTestRide(
+            int rideId,
+            float ridePrice)
         {
             Ride ride = {};
 
             ride.id = rideId;
+
             strcpy_s(
                 ride.name,
                 sizeof(ride.name),
                 "Test Ride");
 
+            ride.price = ridePrice;
             ride.minAge = 0;
             ride.minHeight = 0;
             ride.maxWeight = 0;
-            ride.price = ridePrice;
 
             return ride;
         }
@@ -57,14 +60,21 @@ namespace UnitTest3
             int rideCount = 3;
 
             int result =
-                deleteRideFromCart(cart, &rideCount, 1);
+                deleteRideFromCart(
+                    cart,
+                    &rideCount,
+                    1);
 
             Assert::AreEqual(1, result);
             Assert::AreEqual(2, rideCount);
             Assert::AreEqual(2, cart[0].id);
             Assert::AreEqual(3, cart[1].id);
             Assert::AreEqual(0, cart[2].id);
-            Assert::AreEqual(0.0, cart[2].price, 0.001);
+
+            Assert::AreEqual(
+                0.00f,
+                cart[2].price,
+                0.001f);
         }
 
         /*
@@ -83,7 +93,10 @@ namespace UnitTest3
             int rideCount = 3;
 
             int result =
-                deleteRideFromCart(cart, &rideCount, 2);
+                deleteRideFromCart(
+                    cart,
+                    &rideCount,
+                    2);
 
             Assert::AreEqual(1, result);
             Assert::AreEqual(2, rideCount);
@@ -108,7 +121,10 @@ namespace UnitTest3
             int rideCount = 3;
 
             int result =
-                deleteRideFromCart(cart, &rideCount, 3);
+                deleteRideFromCart(
+                    cart,
+                    &rideCount,
+                    3);
 
             Assert::AreEqual(1, result);
             Assert::AreEqual(2, rideCount);
@@ -131,12 +147,19 @@ namespace UnitTest3
             int rideCount = 1;
 
             int result =
-                deleteRideFromCart(cart, &rideCount, 1);
+                deleteRideFromCart(
+                    cart,
+                    &rideCount,
+                    1);
 
             Assert::AreEqual(1, result);
             Assert::AreEqual(0, rideCount);
             Assert::AreEqual(0, cart[0].id);
-            Assert::AreEqual(0.0, cart[0].price, 0.001);
+
+            Assert::AreEqual(
+                0.00f,
+                cart[0].price,
+                0.001f);
         }
 
         /*
@@ -155,7 +178,10 @@ namespace UnitTest3
             int rideCount = 3;
 
             int result =
-                deleteRideFromCart(cart, &rideCount, 99);
+                deleteRideFromCart(
+                    cart,
+                    &rideCount,
+                    99);
 
             Assert::AreEqual(0, result);
             Assert::AreEqual(3, rideCount);
@@ -173,7 +199,10 @@ namespace UnitTest3
             int rideCount = 2;
 
             int result =
-                deleteRideFromCart(nullptr, &rideCount, 1);
+                deleteRideFromCart(
+                    nullptr,
+                    &rideCount,
+                    1);
 
             Assert::AreEqual(0, result);
             Assert::AreEqual(2, rideCount);
@@ -191,7 +220,10 @@ namespace UnitTest3
             };
 
             int result =
-                deleteRideFromCart(cart, nullptr, 1);
+                deleteRideFromCart(
+                    cart,
+                    nullptr,
+                    1);
 
             Assert::AreEqual(0, result);
             Assert::AreEqual(1, cart[0].id);
@@ -210,9 +242,15 @@ namespace UnitTest3
                 createTestRide(3, 15.00f)
             };
 
-            float total = calculateTotal(cart, 3);
+            float total =
+                calculateTotal(
+                    cart,
+                    3);
 
-            Assert::AreEqual(37.50f, total, 0.001f);
+            Assert::AreEqual(
+                37.50f,
+                total,
+                0.001f);
         }
 
         /*
@@ -221,9 +259,15 @@ namespace UnitTest3
          */
         TEST_METHOD(TC09_CalculateTotal_NullCartReturnsZero)
         {
-            float total = calculateTotal(nullptr, 3);
+            float total =
+                calculateTotal(
+                    nullptr,
+                    3);
 
-            Assert::AreEqual(0.00f, total, 0.001f);
+            Assert::AreEqual(
+                0.00f,
+                total,
+                0.001f);
         }
 
         /*
@@ -237,9 +281,15 @@ namespace UnitTest3
                 createTestRide(1, 10.00f)
             };
 
-            float total = calculateTotal(cart, 0);
+            float total =
+                calculateTotal(
+                    cart,
+                    0);
 
-            Assert::AreEqual(0.00f, total, 0.001f);
+            Assert::AreEqual(
+                0.00f,
+                total,
+                0.001f);
         }
 
         /*
@@ -260,20 +310,31 @@ namespace UnitTest3
             Ticket ticket = {};
 
             int result =
-                calculateBill(cart, 4, 1001, &ticket);
+                calculateBill(
+                    cart,
+                    4,
+                    1001,
+                    &ticket);
 
             Assert::AreEqual(1, result);
             Assert::AreEqual(1001, ticket.ticketId);
             Assert::AreEqual(4, ticket.rideCount);
-            Assert::AreEqual(50.00f, ticket.subtotal, 0.001f);
+
+            Assert::AreEqual(
+                50.00f,
+                ticket.subtotal,
+                0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.discountPercentage,
                 0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.discountAmount,
                 0.001f);
+
             Assert::AreEqual(
                 50.00f,
                 ticket.finalTotal,
@@ -299,20 +360,31 @@ namespace UnitTest3
             Ticket ticket = {};
 
             int result =
-                calculateBill(cart, 5, 1002, &ticket);
+                calculateBill(
+                    cart,
+                    5,
+                    1002,
+                    &ticket);
 
             Assert::AreEqual(1, result);
             Assert::AreEqual(1002, ticket.ticketId);
             Assert::AreEqual(5, ticket.rideCount);
-            Assert::AreEqual(50.00f, ticket.subtotal, 0.001f);
+
+            Assert::AreEqual(
+                50.00f,
+                ticket.subtotal,
+                0.001f);
+
             Assert::AreEqual(
                 20.00f,
                 ticket.discountPercentage,
                 0.001f);
+
             Assert::AreEqual(
                 10.00f,
                 ticket.discountAmount,
                 0.001f);
+
             Assert::AreEqual(
                 40.00f,
                 ticket.finalTotal,
@@ -339,20 +411,31 @@ namespace UnitTest3
             Ticket ticket = {};
 
             int result =
-                calculateBill(cart, 6, 1003, &ticket);
+                calculateBill(
+                    cart,
+                    6,
+                    1003,
+                    &ticket);
 
             Assert::AreEqual(1, result);
             Assert::AreEqual(1003, ticket.ticketId);
             Assert::AreEqual(6, ticket.rideCount);
-            Assert::AreEqual(210.00f, ticket.subtotal, 0.001f);
+
+            Assert::AreEqual(
+                210.00f,
+                ticket.subtotal,
+                0.001f);
+
             Assert::AreEqual(
                 20.00f,
                 ticket.discountPercentage,
                 0.001f);
+
             Assert::AreEqual(
                 42.00f,
                 ticket.discountAmount,
                 0.001f);
+
             Assert::AreEqual(
                 168.00f,
                 ticket.finalTotal,
@@ -382,23 +465,31 @@ namespace UnitTest3
             };
 
             int result =
-                calculateBill(cart, 1, 0, &ticket);
+                calculateBill(
+                    cart,
+                    1,
+                    0,
+                    &ticket);
 
             Assert::AreEqual(0, result);
             Assert::AreEqual(0, ticket.ticketId);
             Assert::AreEqual(0, ticket.rideCount);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.subtotal,
                 0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.discountPercentage,
                 0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.discountAmount,
                 0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.finalTotal,
@@ -422,27 +513,35 @@ namespace UnitTest3
             };
 
             int result =
-                calculateBill(nullptr, 0, 1004, &ticket);
+                calculateBill(
+                    nullptr,
+                    0,
+                    1004,
+                    &ticket);
 
             Assert::AreEqual(0, result);
             Assert::AreEqual(0, ticket.ticketId);
             Assert::AreEqual(0, ticket.rideCount);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.subtotal,
                 0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.discountPercentage,
                 0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.discountAmount,
                 0.001f);
+
             Assert::AreEqual(
                 0.00f,
                 ticket.finalTotal,
                 0.001f);
         }
     };
-}   
+}
