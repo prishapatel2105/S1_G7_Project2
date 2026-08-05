@@ -486,9 +486,7 @@ int saveTicketRecord(
 }
 
 /*
- * BUG 2:
- * The final total is assigned from discountAmount instead of
- * totalAmount.
+ * Creates and saves a basic ticket record.
  */
 int saveTicketDetails(
     const char* filename,
@@ -526,10 +524,9 @@ int saveTicketDetails(
     ticket.discountAmount = 0.0f;
 
     /*
-     * Seeded defect:
-     * This writes Final Total: $0.00.
+     * Correct assignment.
      */
-    ticket.finalTotal = ticket.discountAmount;
+    ticket.finalTotal = totalAmount;
 
     return saveTicketRecord(
         filename,
