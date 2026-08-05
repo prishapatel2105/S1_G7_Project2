@@ -28,11 +28,11 @@ extern "C" {
 
     typedef struct User
     {
-        int id;
+		int id;
         char name[USER_NAME_LENGTH];
         int age;
-        int height; /* in centimeters */
-        int weight; /* in kilograms */
+		int height; /* in centimeters */
+		int weight; /* in kilograms */
     } User;
 
     /*=========================================================
@@ -45,8 +45,9 @@ extern "C" {
         char name[RIDE_NAME_LENGTH];
         float price;
         int minAge;
-        int minHeight; /* in centimeters */
-        int maxWeight; /* in kilograms; 0 means no maximum */
+		int minHeight; /* in centimeters */
+		int maxWeight; /* in kilograms; 0 means no maximum */
+		double price;
     } Ride;
 
     /*=========================================================
