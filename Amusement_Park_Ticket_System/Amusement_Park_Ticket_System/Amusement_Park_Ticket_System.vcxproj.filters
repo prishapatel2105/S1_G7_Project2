@@ -18,5 +18,22 @@
     <ClCompile Include="Amusement_Park_Ticket_System.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="file_exit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="file_exit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="user_ride_display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eligibility_selection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="delete_billing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

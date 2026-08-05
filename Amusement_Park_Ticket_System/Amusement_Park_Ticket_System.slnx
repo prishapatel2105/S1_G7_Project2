@@ -4,4 +4,5 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="Amusement_Park_Ticket_System/Amusement_Park_Ticket_System.vcxproj" Id="a6462064-ad26-4d3e-aab3-c0aec72af6db" />
+  <Project Path="UnitTest4/UnitTest4.vcxproj" />
 </Solution>
