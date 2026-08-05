@@ -30,6 +30,10 @@
   <ClCompile Include="delete_billing.c">
     <Filter>Source Files</Filter>
   </ClCompile>
+
+  <ClCompile Include="file_exit.c">
+    <Filter>Source Files</Filter>
+  </ClCompile>
 </ItemGroup>
 
 <ItemGroup>
@@ -44,5 +48,10 @@
   <ClInclude Include="delete_billing.h">
     <Filter>Header Files</Filter>
   </ClInclude>
+
+  <ClInclude Include="file_exit.h">
+    <Filter>Header Files</Filter>
+  </ClInclude>
 </ItemGroup>
+
 </Project>
