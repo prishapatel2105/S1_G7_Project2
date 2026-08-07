@@ -4,7 +4,14 @@
  * Purpose: Declares file input/output, cleanup and application exit
  *          functions for the Amusement Park Ticket Generator.
  */
-
+ /**
+  * @file file_exit.h
+  * @brief File management and application cleanup functions.
+  *
+  * This module handles loading ride information, saving ticket
+  * records, maintaining booking history, and cleaning up
+  * dynamically allocated resources.
+  */
 #ifndef EXIT_FILE_MODULE_H
 #define EXIT_FILE_MODULE_H
 
@@ -31,6 +38,19 @@ extern "C" {
      *          valid ride is loaded; otherwise, returns 0.
      * Purpose: Reads comma-separated ride records from an ASCII text file.
      */
+     /**
+  * @brief Loads ride information from a ride data file.
+  *
+  * Reads ride information from the specified file and stores
+  * the available rides in the provided array.
+  *
+  * @param filename Name of the ride data file.
+  * @param rides Array where the loaded rides will be stored.
+  * @param rideCount Pointer to the number of rides loaded.
+  *
+  * @return 1 if the ride data was loaded successfully.
+  * @return 0 if the file could not be opened or the data is invalid.
+  */
     int loadRideData(
         const char* filename,
         Ride rides[],
@@ -79,6 +99,14 @@ extern "C" {
      * Outputs: Frees the cart, sets the cart pointer to NULL and closes the file.
      * Purpose: Releases resources before the application terminates.
      */
+     /**
+  * @brief Cleans up system resources before application termination.
+  *
+  * Frees dynamically allocated memory for the ride cart and closes any open files.
+  *
+  * @param cart Pointer to the user's ride cart.
+  * @param file Pointer to the open file (if applicable).
+  */
     void cleanupSystem(
         Ride** cart,
         FILE* file);
@@ -90,6 +118,12 @@ extern "C" {
      * Purpose: Provides the normal-exit routine that can be registered by using
      *          atexit(exitProgram).
      */
+     /**
+  * @brief Performs application exit cleanup.
+  *
+  * Releases resources and performs required cleanup operations
+  * when the application terminates.
+  */
     void exitProgram(void);
 
 #ifdef __cplusplus

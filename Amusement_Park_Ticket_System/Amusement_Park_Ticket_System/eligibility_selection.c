@@ -1,9 +1,10 @@
-/*
- * File: eligibility_selection.c
- * Author: Daksh Bajaj
- * Purpose: Implements ride eligibility checking, ride selection,
- *          dynamic cart management and ticket ID generation.
+/**
+ * @file eligibility_selection.c
+ * @author Daksh Bajaj
+ * @brief Implements ride eligibility checking, ride selection,
+ *        dynamic cart management, and ticket ID generation.
  */
+
 
 #include "eligibility_selection.h"
 
@@ -14,6 +15,19 @@
  /*
   * Checks whether a user meets all ride restrictions.
   */
+  /**
+   * @brief Checks whether a user is eligible for a selected ride.
+   *
+   * Verifies the user's age, height, and weight against the
+   * minimum age, minimum height, and maximum weight restrictions
+   * of the selected ride.
+   *
+   * @param user Pointer to the User structure containing visitor information.
+   * @param ride Pointer to the Ride structure being checked.
+   *
+   * @return 1 if the user meets all ride requirements.
+   * @return 0 if the user is not eligible or if the input information is invalid.
+   */
 int checkEligibility(
     const User* user,
     const Ride* ride)
@@ -100,6 +114,19 @@ int checkEligibility(
 /*
  * Checks whether a ride already exists in the cart.
  */
+ /**
+  * @brief Checks whether a ride is already present in the cart.
+  *
+  * Searches the selected ride cart for a ride with the specified
+  * ride ID.
+  *
+  * @param cart Array containing the selected rides.
+  * @param rideCount Number of rides currently stored in the cart.
+  * @param rideId ID of the ride to search for.
+  *
+  * @return 1 if the ride already exists in the cart.
+  * @return 0 if the ride is not found or the input is invalid.
+  */
 int isDuplicateRide(
     const Ride* cart,
     int rideCount,
@@ -130,6 +157,24 @@ int isDuplicateRide(
 /*
  * Adds an eligible, non-duplicate ride to the dynamic cart.
  */
+ /**
+  * @brief Adds an eligible and non-duplicate ride to the cart.
+  *
+  * Checks the visitor's eligibility and verifies that the ride
+  * has not already been selected. The function dynamically
+  * allocates or expands the ride cart when additional capacity
+  * is required.
+  *
+  * @param cart Pointer to the dynamically allocated ride cart.
+  * @param rideCount Pointer to the number of rides currently selected.
+  * @param capacity Pointer to the current cart capacity.
+  * @param ride Pointer to the ride being added.
+  * @param user Pointer to the visitor's User information.
+  *
+  * @return 1 if the ride is successfully added.
+  * @return 0 if the ride cannot be added due to invalid input,
+  *         ineligibility, duplication, or memory allocation failure.
+  */
 int addRideToCart(
     Ride** cart,
     int* rideCount,
@@ -249,6 +294,16 @@ int addRideToCart(
 /*
  * Generates a six-digit ticket ID.
  */
+ /**
+  * @brief Generates a six-digit ticket ID.
+  *
+  * Seeds the random number generator once using the current time
+  * and generates a ticket ID between 100000 and 999999.
+  * The function prevents the newly generated ID from being the
+  * same as the immediately previous ticket ID.
+  *
+  * @return A randomly generated six-digit ticket ID.
+  */
 int generateTicketId(void)
 {
     static int isSeeded = 0;
@@ -285,6 +340,16 @@ int generateTicketId(void)
 /*
  * Displays the current cart.
  */
+ /**
+  * @brief Displays the rides currently selected by the user.
+  *
+  * Displays each selected ride's position, ride ID, name,
+  * and price. If the cart is empty, an appropriate message
+  * is displayed.
+  *
+  * @param cart Array containing the selected rides.
+  * @param rideCount Number of rides currently selected.
+  */
 void displayCart(
     const Ride* cart,
     int rideCount)

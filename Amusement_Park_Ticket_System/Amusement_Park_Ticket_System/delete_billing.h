@@ -4,6 +4,13 @@
  * Purpose: Declares the public functions used by the Delete and Billing
  *          Modules.
  */
+ /**
+  * @file delete_billing.h
+  * @brief Ride deletion and billing functions.
+  *
+  * This module provides functionality for removing rides from
+  * the user's cart and calculating the final ticket bill.
+  */
 
 #ifndef DELETE_BILLING_H
 #define DELETE_BILLING_H
@@ -36,6 +43,16 @@ extern "C" {
      * Purpose: Removes a selected ride while preserving the order of all remaining
      *          rides.
      */
+     /**
+  * @brief Removes a ride from the user's cart.
+  *
+  * @param cart User's selected ride cart.
+  * @param cartCount Pointer to the number of rides in the cart.
+  * @param rideId ID of the ride to remove.
+  *
+  * @return 1 if the ride was successfully removed.
+  * @return 0 if the ride was not found or deletion failed.
+  */
     int deleteRideFromCart(Ride* cart, int* rideCount, int rideId);
 
     /*
@@ -54,6 +71,20 @@ extern "C" {
      *          returns 0.
      * Purpose: Calculates subtotal, discount amount and final payable total.
      */
+     /**
+  * @brief Calculates the bill for the selected rides.
+  *
+  * Calculates the subtotal, applicable discount,
+  * discount amount, and final total.
+  *
+  * @param cart Array containing selected rides.
+  * @param rideCount Number of selected rides.
+  * @param ticketId Ticket identification number.
+  * @param ticket Pointer to the Ticket structure to populate.
+  *
+  * @return 1 if the bill was calculated successfully.
+  * @return 0 if billing could not be completed.
+  */
     int calculateBill(
         const Ride* cart,
         int rideCount,

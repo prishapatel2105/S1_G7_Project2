@@ -1,9 +1,11 @@
-/*
- * File: user_ride_display.c
- * Author: Prisha Bhaveshkumar Patel
- * Purpose: Implements the User and Ride Display modules for the
- *          Amusement Park Ticket Generator.
+/**
+ * @file user_ride_display.c
+ * @author Prisha Bhaveshkumar Patel
+ * @brief Implements the User and Ride Display modules for the
+ *        Amusement Park Ticket Generator.
  */
+
+
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -141,6 +143,17 @@ static const int RIDE_MAXIMUM_WEIGHTS[RIDE_CATALOG_SIZE] =
  *          otherwise, returns 0.
  * Purpose: Initializes default user information for startup and testing.
  */
+ /**
+  * @brief Initializes user information.
+  *
+  * Initializes the User structure with default user information
+  * for application startup and testing.
+  *
+  * @param user Pointer to the User structure to populate.
+  *
+  * @return 1 if the user information is initialized successfully.
+  * @return 0 if the user pointer is NULL.
+  */
 int getUserDetails(User* user)
 {
     if (user == NULL)
@@ -172,6 +185,21 @@ int getUserDetails(User* user)
  *          otherwise, returns 0.
  * Purpose: Initializes the built-in amusement park ride catalogue.
  */
+ /**
+  * @brief Initializes the amusement park ride catalogue.
+  *
+  * Populates the supplied Ride array with all rides defined
+  * in the project catalogue, including their IDs, names,
+  * prices, age requirements, height requirements, and
+  * maximum weight restrictions.
+  *
+  * @param rides Array in which the ride catalogue will be stored.
+  * @param maximumRides Maximum number of Ride elements available
+  *                     in the supplied array.
+  *
+  * @return Number of rides initialized when successful.
+  * @return 0 if the array is NULL or its capacity is insufficient.
+  */
 int initializeRides(
     Ride rides[],
     int maximumRides)
@@ -227,6 +255,18 @@ int initializeRides(
  *          is invalid.
  * Purpose: Retrieves the category associated with a ride.
  */
+ /**
+  * @brief Retrieves the category of a ride.
+  *
+  * Searches for the category associated with the supplied ride ID.
+  * The function supports the project ride IDs R101 through R115
+  * as well as numeric IDs 1 through 15 used by existing tests.
+  *
+  * @param rideId Numeric ID of the ride.
+  *
+  * @return Pointer to the ride category string.
+  * @return NULL if the ride ID is invalid.
+  */
 const char* getRideCategoryById(
     int rideId)
 {
@@ -262,6 +302,16 @@ const char* getRideCategoryById(
  * Outputs: Displays all ride information in a tabular format.
  * Purpose: Shows ride IDs, names, categories, restrictions and prices.
  */
+ /**
+  * @brief Displays the complete amusement park ride catalogue.
+  *
+  * Displays all available rides in a tabular format including
+  * ride ID, ride name, category, minimum age, minimum height,
+  * maximum weight, and ticket price.
+  *
+  * @param rides Array containing the available rides.
+  * @param rideCount Number of rides in the array.
+  */
 void displayRides(
     const Ride rides[],
     int rideCount)
@@ -382,6 +432,19 @@ void displayRides(
  * Outputs: Returns a pointer to the matching Ride or NULL.
  * Purpose: Finds a selected ride in the ride catalogue.
  */
+ /**
+  * @brief Finds a ride using its ride ID.
+  *
+  * Searches the supplied ride array for a ride matching the
+  * specified ride ID.
+  *
+  * @param rides Array containing the available rides.
+  * @param rideCount Number of rides in the array.
+  * @param rideId ID of the ride to find.
+  *
+  * @return Pointer to the matching Ride structure.
+  * @return NULL if the ride is not found or the input is invalid.
+  */
 const Ride* getRideById(
     const Ride rides[],
     int rideCount,

@@ -1,10 +1,23 @@
-
+/**
+ * @file delete_billing.c
+ * @author naitik visana
+ * @brief Implements the Delete and Billing modules for the
+ *        Amusement Park Ticket Generator.
+ */
 
 #include "delete_billing.h"
 
 #include <stdio.h>
 #include <string.h>
-
+ /**
+  * @brief Displays the rides currently selected by the user.
+  *
+  * This function is used before deleting a ride so that the user
+  * can see the current contents of the selected ride cart.
+  *
+  * @param cart Array containing the selected rides.
+  * @param rideCount Number of rides currently in the cart.
+  */
 static void displayRidesBeforeDeletion(const Ride* cart, int rideCount)
 {
     int index;
@@ -22,7 +35,20 @@ static void displayRidesBeforeDeletion(const Ride* cart, int rideCount)
             cart[index].price);
     }
 }
-
+/**
+ * @brief Deletes a selected ride from the user's cart.
+ *
+ * Searches the cart for the specified ride ID. When the ride is
+ * found, the remaining rides are shifted to fill the empty
+ * position and the ride count is reduced.
+ *
+ * @param cart Array containing the selected rides.
+ * @param rideCount Pointer to the number of rides currently in the cart.
+ * @param rideId ID of the ride to be deleted.
+ *
+ * @return 1 if the ride is deleted successfully.
+ * @return 0 if the cart is invalid, empty, or the ride is not found.
+ */
 
 int deleteRideFromCart(Ride* cart, int* rideCount, int rideId)
 {
@@ -78,7 +104,17 @@ int deleteRideFromCart(Ride* cart, int* rideCount, int rideId)
     return 1;
 }
 
-
+/**
+ * @brief Calculates the subtotal of all selected rides.
+ *
+ * Adds the prices of every ride currently stored in the cart.
+ *
+ * @param cart Array containing the selected rides.
+ * @param rideCount Number of rides in the cart.
+ *
+ * @return The calculated subtotal.
+ * @return 0.0 if the cart is NULL or contains no rides.
+ */
 float calculateTotal(const Ride* cart, int rideCount)
 {
     float subtotal = 0.0f;
@@ -98,7 +134,21 @@ float calculateTotal(const Ride* cart, int rideCount)
     return subtotal;
 }
 
-
+/**
+ * @brief Calculates the complete ticket bill.
+ *
+ * Calculates the subtotal, applies the project discount when
+ * the required number of rides has been selected, and stores
+ * the resulting billing information in the Ticket structure.
+ *
+ * @param cart Array containing the selected rides.
+ * @param rideCount Number of rides in the cart.
+ * @param ticketId Unique ticket identification number.
+ * @param ticket Pointer to the Ticket structure to populate.
+ *
+ * @return 1 if the bill is calculated successfully.
+ * @return 0 if the ticket pointer, cart, ride count, or ticket ID is invalid.
+ */
 int calculateBill(
     const Ride* cart,
     int rideCount,
@@ -149,7 +199,18 @@ int calculateBill(
     return 1;
 }
 
-
+/**
+ * @brief Displays the completed amusement park ticket.
+ *
+ * Displays visitor information, selected rides, subtotal,
+ * discount information, and final ticket total.
+ *
+ * @param user Pointer to the registered user's information.
+ * @param cart Array containing the selected rides.
+ * @param rideCount Number of rides in the cart.
+ * @param totalAmount Final ticket amount after applicable discounts.
+ * @param ticketId Unique ticket identification number.
+ */
 void displayBill(
     const User* user,
     const Ride* cart,

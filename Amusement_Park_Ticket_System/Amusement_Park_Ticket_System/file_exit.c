@@ -1,13 +1,12 @@
-/*
- * File: file_exit.c
- * Author: Pratyasa Roy
- * Purpose: Implements ASCII ride-file loading, final-ticket file saving,
- *          resource cleanup and normal application exit.
+/**
+ * @file file_exit.c
+ * @author Pratyasa Roy
+ * @brief Implements the File and Exit modules for the
+ *        Amusement Park Ticket Generator.
  *
- * This version contains two documented seeded defects for issue testing:
- *
- * Bug 1: Ride IDs without the R prefix are rejected.
- * Bug 2: saveTicketDetails stores the wrong final total.
+ * This module loads ride information from a CSV file,
+ * saves ticket records, manages allocated resources,
+ * and handles normal application exit.
  */
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -29,6 +28,14 @@
  /*
   * Removes leading and trailing whitespace.
   */
+  /**
+   * @brief Removes leading and trailing whitespace from text.
+   *
+   * Modifies the supplied string by removing whitespace characters
+   * from the beginning and end of the text.
+   *
+   * @param text String to be trimmed.
+   */
 static void trimText(char* text)
 {
     char* start;
@@ -81,6 +88,19 @@ static void trimText(char* text)
  /*
   * Parses both R-prefixed and numeric ride IDs.
   */
+  /**
+   * @brief Parses one ride record from a CSV-formatted line.
+   *
+   * Supports both R-prefixed ride IDs such as R101 and numeric
+   * ride IDs such as 101. The parsed ride information is validated
+   * before being stored in the Ride structure.
+   *
+   * @param line CSV-formatted ride record.
+   * @param ride Pointer to the Ride structure to populate.
+   *
+   * @return 1 if the ride record is parsed successfully.
+   * @return 0 if the line is invalid or the input pointers are NULL.
+   */
 static int parseRideLine(
     const char* line,
     Ride* ride)
@@ -177,6 +197,21 @@ static int parseRideLine(
 /*
  * Loads ride records from a CSV file.
  */
+ /**
+  * @brief Loads ride records from a CSV file.
+  *
+  * Opens the specified ride file, reads each valid ride record,
+  * ignores blank lines and comments, and stores the rides in
+  * the supplied array.
+  *
+  * @param filename Name of the CSV ride file.
+  * @param rides Array where the loaded rides will be stored.
+  * @param rideCount Pointer to the number of rides successfully loaded.
+  *
+  * @return 1 if the ride file is loaded successfully.
+  * @return 0 if the file cannot be opened, contains invalid data,
+  *         contains too many rides, or another file error occurs.
+  */
 int loadRideData(
     const char* filename,
     Ride rides[],
@@ -316,6 +351,23 @@ int loadRideData(
 /*
  * Saves a complete ticket record.
  */
+ /**
+  * @brief Saves a complete ticket record to a file.
+  *
+  * Opens the ticket file in append mode so that previously
+  * saved ticket records are preserved. The visitor information,
+  * selected rides, subtotal, discount, and final total are
+  * written to the file.
+  *
+  * @param filename Name of the ticket output file.
+  * @param user Pointer to the registered user's information.
+  * @param cart Array containing the selected rides.
+  * @param rideCount Number of rides selected by the user.
+  * @param ticket Pointer to the completed Ticket structure.
+  *
+  * @return 1 if the ticket is successfully saved.
+  * @return 0 if the input is invalid or a file operation fails.
+  */
 int saveTicketRecord(
     const char* filename,
     const User* user,
@@ -483,6 +535,22 @@ int saveTicketRecord(
 /*
  * Creates and saves a basic ticket record.
  */
+ /**
+  * @brief Creates and saves a basic ticket record.
+  *
+  * Initializes a Ticket structure using the supplied ticket
+  * information and passes it to saveTicketRecord() for storage.
+  *
+  * @param filename Name of the ticket output file.
+  * @param user Pointer to the registered user's information.
+  * @param cart Array containing the selected rides.
+  * @param rideCount Number of selected rides.
+  * @param ticketId Unique ticket identification number.
+  * @param totalAmount Final ticket amount.
+  *
+  * @return 1 if the ticket is successfully created and saved.
+  * @return 0 if the supplied information is invalid or saving fails.
+  */
 int saveTicketDetails(
     const char* filename,
     const User* user,
@@ -538,6 +606,15 @@ int saveTicketDetails(
 /*
  * Releases allocated memory and closes an open file.
  */
+ /**
+  * @brief Releases allocated resources used by the application.
+  *
+  * Frees the dynamically allocated ride cart and closes the
+  * supplied file when necessary.
+  *
+  * @param cart Pointer to the dynamically allocated ride cart.
+  * @param file File pointer that should be closed, if applicable.
+  */
 void cleanupSystem(
     Ride** cart,
     FILE* file)
@@ -562,6 +639,12 @@ void cleanupSystem(
 /*
  * Displays the normal application-exit message.
  */
+ /**
+  * @brief Displays the normal application exit message.
+  *
+  * Informs the user that the Amusement Park Ticket Generator
+  * has exited successfully.
+  */
 void exitProgram(void)
 {
     printf(
